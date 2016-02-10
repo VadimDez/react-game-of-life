@@ -27,6 +27,12 @@ class Board extends React.Component {
         )
     }
 
+  /**
+   * Render object
+   *
+   * @param object
+   * @returns {Array}
+   */
     renderObject(object) {
         let lines = [];
         for (let row in object) {
