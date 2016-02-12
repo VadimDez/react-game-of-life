@@ -18,7 +18,9 @@
   "homepage": "https://github.com/VadimDez/react-game-of-life#readme",
   "dependencies": {
     "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react-dom": "^0.14.7",
+    "react-redux": "^4.4.0",
+    "redux": "^3.3.1"
   },
   "devDependencies": {
     "babel-core": "^6.4.5",

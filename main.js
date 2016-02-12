@@ -5,13 +5,17 @@
 import React from 'react';
 import {render} from 'react-dom';
 
+import store from './store';
+import {Provider} from 'react-redux';
 import './styles/main.scss';
 import Game from './components/Game';
 
 const renderer = () => {
     render(
-        <Game />,
-        document.getElementById('app')
+      <Provider store={store}>
+        <Game />
+      </Provider>,
+      document.getElementById('app')
     );
 };
 
