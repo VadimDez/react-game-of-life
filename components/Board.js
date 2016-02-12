@@ -7,9 +7,10 @@ import Cell from './Cell'
 
 class Board extends React.Component {
     render() {
-        const width = this.props.width || 20;
-        const height = this.props.height || 20;
-        let cells = {};
+        const state = this.context.store.getState()
+        const width = state.board.width
+        const height = state.board.height
+        let cells = {}
 
         for (let r = 0; r < height; r++) {
             for (let c = 0; c < width; c++) {
@@ -46,5 +47,9 @@ class Board extends React.Component {
         return lines;
     }
 }
+
+Board.contextTypes = {
+    store: React.PropTypes.object
+};
 
 export default Board;
