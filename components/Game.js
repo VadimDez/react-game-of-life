@@ -8,6 +8,21 @@ import Board from './Board'
 
 class Game extends React.Component {
 
+  constructor() {
+    super()
+
+    this.interval = null
+    this.boardSizes = [
+      {width: 50, height: 30},
+      {width: 70, height: 50},
+      {width: 100, height: 80}
+    ]
+
+    const rand = Math.floor(Math.random() * (this.boardSizes.length))
+    const randomSize = this.boardSizes[rand];
+    //this.changeBoardSize(randomSize.width, randomSize.height);
+  }
+
   componentDidMount() {
     const store = this.context.store
 
@@ -34,13 +49,17 @@ class Game extends React.Component {
         height
       })
 
-      this.store.dispatch({
-        type: 'SET_CELLS',
-        cells: this.generateCells(width, height)
-      })
+      this.generateCells(width, height)
     }
   }
 
+  /**
+   * Generate empty cells
+   *
+   * @param {int} width
+   * @param {int} height
+   * @returns {{}}
+   */
   generateCells(width, height) {
     var cells = {};
     for (let r = 0; r < height; r++) {
@@ -51,7 +70,35 @@ class Game extends React.Component {
       }
     }
 
-    return cells
+    this.store.dispatch({
+      type: 'SET_CELLS',
+      cells: cells
+    })
+  }
+
+  run() {
+    if (this.interval) {
+      clearInterval(this.interval)
+    }
+
+    this.interval = setInterval(this.cycle, 500);
+  }
+
+  pause() {
+    clearInterval(this.interval)
+  }
+
+  /**
+   * Clear interval and board
+   */
+  clear() {
+    clearInterval(this.interval)
+    const board = this.store.getState().board
+    this.generateCells(board.width, board.height)
+  }
+
+  cycle() {
+    console.log('cycle');
   }
 
   render() {
@@ -62,15 +109,17 @@ class Game extends React.Component {
       <div>
         <div>Game</div>
         <div>
-          <button>Run</button>
-          <button>Pause</button>
-          <button>Clear</button>
+          <button onClick={this.run.bind(this)}>Run</button>
+          <button onClick={this.pause.bind(this)}>Pause</button>
+          <button onClick={this.clear.bind(this)}>Clear</button>
         </div>
         <div>
           Size:
-          <button onClick={this.changeBoardSize(50, 30).bind(this)}>50x30</button>
-          <button onClick={this.changeBoardSize(70, 50).bind(this)}>70x50</button>
-          <button onClick={this.changeBoardSize(100, 80).bind(this)}>100x80</button>
+          {
+            this.boardSizes.map(function (size, i) {
+              return <button key={i} onClick={this.changeBoardSize(size.width, size.height).bind(this)}>{size.width}x{size.height}</button>
+            }.bind(this))
+          }
         </div>
         <Board />
       </div>

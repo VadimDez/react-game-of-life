@@ -30,7 +30,7 @@ class Board extends React.Component {
         line.push(<Cell key={`cell-${row}-${column}`} row={row} column={column} life={object[row][column]} />);
       }
 
-      lines.push(<div key={`row-${row}`}>{line}</div>);
+      lines.push(<div className="row" key={`row-${row}`}>{line}</div>);
     }
 
     return lines;

@@ -6,8 +6,6 @@ import React from 'react'
 class Cell extends React.Component {
 
   changeState() {
-    //this.forceUpdate()
-
     this.context.store.dispatch({
       type: 'CELL_UPDATE',
       row: this.props.row,
@@ -18,7 +16,9 @@ class Cell extends React.Component {
 
   render() {
     return (
-      <div className={'cell ' + ((this.props.life) ? 'life' : '')} onClick={this.changeState.bind(this)}> </div>
+      <div
+        className={'cell ' + ((this.props.life) ? 'life' : '')}
+        onClick={this.changeState.bind(this)}></div>
     )
   }
 }
