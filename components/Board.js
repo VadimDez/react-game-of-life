@@ -6,27 +6,14 @@ import React from 'react';
 import Cell from './Cell'
 
 class Board extends React.Component {
-    render() {
-        const state = this.context.store.getState()
-        const width = state.board.width
-        const height = state.board.height
-        let cells = {}
-
-        for (let r = 0; r < height; r++) {
-            for (let c = 0; c < width; c++) {
-                cells[r] = cells[r] || {};
-
-                cells[r][c] = <Cell key={`cell-${r}-${c}`} />
-            }
-        }
-
-        return (
-            <div>
-                <div>Board</div>
-                { this.renderObject(cells) }
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <div>Board</div>
+        { this.renderObject(this.context.store.getState().cells.cells) }
+      </div>
+    )
+  }
 
   /**
    * Render object
@@ -34,22 +21,24 @@ class Board extends React.Component {
    * @param object
    * @returns {Array}
    */
-    renderObject(object) {
-        let lines = [];
-        for (let row in object) {
-            let line = [];
-            for (let column in object[row]) {
-                line.push(object[row][column]);
-            }
-            lines.push(<div key={`row-${row}`}>{line}</div>);
-        }
+  renderObject(object) {
+    let lines = [];
+    for (let row in object) {
+      let line = [];
 
-        return lines;
+      for (let column in object[row]) {
+        line.push(<Cell key={`cell-${row}-${column}`} row={row} column={column} life={object[row][column]} />);
+      }
+
+      lines.push(<div key={`row-${row}`}>{line}</div>);
     }
+
+    return lines;
+  }
 }
 
 Board.contextTypes = {
-    store: React.PropTypes.object
+  store: React.PropTypes.object
 };
 
 export default Board;

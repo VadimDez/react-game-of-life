@@ -33,7 +33,25 @@ class Game extends React.Component {
         width,
         height
       })
+
+      this.store.dispatch({
+        type: 'SET_CELLS',
+        cells: this.generateCells(width, height)
+      })
     }
+  }
+
+  generateCells(width, height) {
+    var cells = {};
+    for (let r = 0; r < height; r++) {
+      for (let c = 0; c < width; c++) {
+        cells[r] = cells[r] || {}
+
+        cells[r][c] = 0
+      }
+    }
+
+    return cells
   }
 
   render() {

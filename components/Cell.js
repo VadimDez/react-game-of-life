@@ -4,21 +4,27 @@
 import React from 'react'
 
 class Cell extends React.Component {
-  constructor() {
-    super()
-    this.life = 0
-  }
 
   changeState() {
-    this.life = 1
-    this.forceUpdate()
+    //this.forceUpdate()
+
+    this.context.store.dispatch({
+      type: 'CELL_UPDATE',
+      row: this.props.row,
+      column: this.props.column,
+      life: 1
+    })
   }
 
   render() {
     return (
-      <span onClick={this.changeState.bind(this)}>{this.life}</span>
+      <span onClick={this.changeState.bind(this)}>{this.props.life}</span>
     )
   }
 }
+
+Cell.contextTypes = {
+  store: React.PropTypes.object
+};
 
 export default Cell
