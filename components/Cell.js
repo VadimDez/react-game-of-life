@@ -4,11 +4,21 @@
 import React from 'react'
 
 class Cell extends React.Component {
-    render() {
-        return (
-            <span>Cell</span>
-        )
-    }
+  constructor() {
+    super()
+    this.life = 0
+  }
+
+  changeState() {
+    this.life = 1
+    this.forceUpdate()
+  }
+
+  render() {
+    return (
+      <span onClick={this.changeState.bind(this)}>{this.life}</span>
+    )
+  }
 }
 
 export default Cell
