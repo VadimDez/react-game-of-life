@@ -18,7 +18,7 @@ class Cell extends React.Component {
 
   render() {
     return (
-      <span onClick={this.changeState.bind(this)}>{this.props.life}</span>
+      <div className={'cell ' + ((this.props.life) ? 'life' : '')} onClick={this.changeState.bind(this)}> </div>
     )
   }
 }
