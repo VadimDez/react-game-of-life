@@ -20,7 +20,7 @@ class Game extends React.Component {
   }
 
   setRandomBoard() {
-    const rand = Math.floor(Math.random() * (this.boardSizes.length))
+    const rand = Math.floor(Math.random() * this.boardSizes.length)
     const randomSize = this.boardSizes[rand];
     this.changeBoardSize(randomSize.width, randomSize.height).bind(this)()
   }
@@ -53,7 +53,7 @@ class Game extends React.Component {
         height
       })
 
-      this.generateCells(width, height)
+      this.generateCells(width, height, true)
     }
   }
 
@@ -62,15 +62,16 @@ class Game extends React.Component {
    *
    * @param {int} width
    * @param {int} height
+   * @param {bool} randomize
    * @returns {{}}
    */
-  generateCells(width, height) {
+  generateCells(width, height, randomize) {
     var cells = {};
     for (let r = 0; r < height; r++) {
       for (let c = 0; c < width; c++) {
         cells[r] = cells[r] || {}
 
-        cells[r][c] = 0
+        cells[r][c] = randomize ? Math.floor(Math.random() * 2) : 0
       }
     }
 
@@ -98,7 +99,7 @@ class Game extends React.Component {
   clear() {
     clearInterval(this.interval)
     const game = this.store.getState().game
-    this.generateCells(game.width, game.height)
+    this.generateCells(game.width, game.height, false)
 
     // reset generation count
     this.store.dispatch({
