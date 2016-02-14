@@ -1,6 +1,6 @@
 import {createStore, combineReducers} from 'redux';
 
-const game = (state = {width: 0, height: 0, generation: 1}, action) => {
+const game = (state = {width: 0, height: 0, generation: 0}, action) => {
 
   if (action.type === 'BOARD_SIZE') {
     return Object.assign({}, state, {
@@ -17,7 +17,7 @@ const game = (state = {width: 0, height: 0, generation: 1}, action) => {
 
   if (action.type === 'GENERATION_RESET') {
     return Object.assign({}, state, {
-      generation: 1
+      generation: 0
     })
   }
 
