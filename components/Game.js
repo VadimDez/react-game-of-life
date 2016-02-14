@@ -17,18 +17,22 @@ class Game extends React.Component {
       {width: 70, height: 50},
       {width: 100, height: 80}
     ]
+  }
 
+  setRandomBoard() {
     const rand = Math.floor(Math.random() * (this.boardSizes.length))
     const randomSize = this.boardSizes[rand];
-    //this.changeBoardSize(randomSize.width, randomSize.height);
+    this.changeBoardSize(randomSize.width, randomSize.height).bind(this)()
   }
 
   componentDidMount() {
-    const store = this.context.store
+    this.store = this.context.store
 
-    this.unsubscribe = store.subscribe(() => {
+    this.unsubscribe = this.store.subscribe(() => {
       this.forceUpdate()
     })
+
+    this.setRandomBoard()
   }
 
   componentWillUnmount() {
@@ -81,7 +85,7 @@ class Game extends React.Component {
       clearInterval(this.interval)
     }
 
-    this.interval = setInterval(this.cycle, 500);
+    this.interval = setInterval(this.cycle.bind(this), 500);
   }
 
   pause() {
@@ -98,7 +102,38 @@ class Game extends React.Component {
   }
 
   cycle() {
-    console.log('cycle');
+    const cells = this.store.getState().cells.cells
+    let updatedCells = Object.assign({}, cells);
+    const rows = Object.keys(cells).length
+
+    for (var row = 0; row < rows; row++) {
+      var columns = Object.keys(cells[row]).length
+
+      for (var column = 0; column < columns; column++) {
+        const prevRow = cells[row - 1] || {};
+        const nextRow = cells[row + 1] || {};
+
+        const count = (prevRow[column - 1] || 0) +
+          (prevRow[column] || 0) +
+          (prevRow[column + 1] || 0) +
+          (cells[row][column - 1] || 0) +
+          (cells[row][column + 1] || 0) +
+          (nextRow[column - 1] || 0) +
+          (nextRow[column] || 0) +
+          (nextRow[column + 1] || 0)
+
+        if (count < 2 || count > 3) {
+          updatedCells[row][column] = 0;
+        } else if (count === 3) {
+          updatedCells[row][column] = 1;
+        }
+      }
+    }
+
+    this.store.dispatch({
+      type: 'SET_CELLS',
+      cells: updatedCells
+    })
   }
 
   render() {
