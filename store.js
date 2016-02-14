@@ -1,11 +1,23 @@
 import {createStore, combineReducers} from 'redux';
 
-const board = (state = {width: 0, height: 0}, action) => {
+const game = (state = {width: 0, height: 0, generation: 1}, action) => {
 
   if (action.type === 'BOARD_SIZE') {
     return Object.assign({}, state, {
       height: action.height,
       width: action.width
+    })
+  }
+
+  if (action.type === 'GENERATION_INCREMENT') {
+    return Object.assign({}, state, {
+      generation: state.generation + 1
+    })
+  }
+
+  if (action.type === 'GENERATION_RESET') {
+    return Object.assign({}, state, {
+      generation: 1
     })
   }
 
@@ -30,6 +42,6 @@ const cells = (state = {}, action) => {
 }
 
 export default createStore(combineReducers({
-  board,
+  game,
   cells
 }));

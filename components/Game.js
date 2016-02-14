@@ -97,8 +97,13 @@ class Game extends React.Component {
    */
   clear() {
     clearInterval(this.interval)
-    const board = this.store.getState().board
-    this.generateCells(board.width, board.height)
+    const game = this.store.getState().game
+    this.generateCells(game.width, game.height)
+
+    // reset generation count
+    this.store.dispatch({
+      type: 'GENERATION_RESET'
+    })
   }
 
   cycle() {
@@ -134,6 +139,11 @@ class Game extends React.Component {
       type: 'SET_CELLS',
       cells: updatedCells
     })
+
+    // update generation count
+    this.store.dispatch({
+      type: 'GENERATION_INCREMENT'
+    })
   }
 
   render() {
@@ -155,6 +165,9 @@ class Game extends React.Component {
               return <button key={i} onClick={this.changeBoardSize(size.width, size.height).bind(this)}>{size.width}x{size.height}</button>
             }.bind(this))
           }
+        </div>
+        <div>
+          Generation: {state.game.generation}
         </div>
         <Board />
       </div>
