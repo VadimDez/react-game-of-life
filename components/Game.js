@@ -53,6 +53,7 @@ class Game extends React.Component {
         height
       })
 
+      clearInterval(this.interval)
       this.generateCells(width, height, true)
     }
   }
@@ -118,13 +119,14 @@ class Game extends React.Component {
    */
   cycle() {
     const cells = this.store.getState().cells.cells
-    let updatedCells = Object.assign({}, cells);
+    let updatedCells = {}
     const rows = Object.keys(cells).length
 
     for (var row = 0; row < rows; row++) {
       var columns = Object.keys(cells[row]).length
-
+      updatedCells[row] = {};
       for (var column = 0; column < columns; column++) {
+
         const prevRow = cells[row - 1] || {};
         const nextRow = cells[row + 1] || {};
 
@@ -137,10 +139,11 @@ class Game extends React.Component {
           (nextRow[column] || 0) +
           (nextRow[column + 1] || 0)
 
-        if (count < 2 || count > 3) {
-          updatedCells[row][column] = 0;
+        updatedCells[row][column] = 0
+        if (cells[row][column] === 1 && count === 2) {
+          updatedCells[row][column] = 1
         } else if (count === 3) {
-          updatedCells[row][column] = 1;
+          updatedCells[row][column] = 1
         }
       }
     }
