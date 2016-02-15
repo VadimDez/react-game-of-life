@@ -7,10 +7,12 @@ import Cell from './Cell'
 
 class Board extends React.Component {
   render() {
+    const state = this.context.store.getState()
+
     return (
-      <div>
+      <div className={`width-${state.game.width}`}>
         <div>Board</div>
-        { this.renderObject(this.context.store.getState().cells.cells) }
+        { this.renderObject(state.cells.cells) }
       </div>
     )
   }

@@ -81,6 +81,9 @@ class Game extends React.Component {
     })
   }
 
+  /**
+   * On run
+   */
   run() {
     if (this.interval) {
       clearInterval(this.interval)
@@ -89,6 +92,9 @@ class Game extends React.Component {
     this.interval = setInterval(this.cycle.bind(this), 500);
   }
 
+  /**
+   * On pause
+   */
   pause() {
     clearInterval(this.interval)
   }
@@ -107,6 +113,9 @@ class Game extends React.Component {
     })
   }
 
+  /**
+   * Cycle callback
+   */
   cycle() {
     const cells = this.store.getState().cells.cells
     let updatedCells = Object.assign({}, cells);
@@ -136,6 +145,7 @@ class Game extends React.Component {
       }
     }
 
+    // update cells
     this.store.dispatch({
       type: 'SET_CELLS',
       cells: updatedCells
