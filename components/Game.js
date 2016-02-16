@@ -118,6 +118,7 @@ class Game extends React.Component {
    * Cycle callback
    */
   cycle() {
+    let stop = true
     const cells = this.store.getState().cells.cells
     let updatedCells = {}
     const rows = Object.keys(cells).length
@@ -126,6 +127,11 @@ class Game extends React.Component {
       var columns = Object.keys(cells[row]).length
       updatedCells[row] = {};
       for (var column = 0; column < columns; column++) {
+
+        // check if there're any lives
+        if (cells[row][column] === 1) {
+          stop = false
+        }
 
         const prevRow = cells[row - 1] || {};
         const nextRow = cells[row + 1] || {};
@@ -146,6 +152,12 @@ class Game extends React.Component {
           updatedCells[row][column] = 1
         }
       }
+    }
+
+    // clear if no more lifes
+    if (stop) {
+      this.clear();
+      return;
     }
 
     // update cells
