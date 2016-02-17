@@ -33,6 +33,7 @@ class Game extends React.Component {
     })
 
     this.setRandomBoard()
+    this.run()
   }
 
   componentWillUnmount() {
