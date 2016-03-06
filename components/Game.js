@@ -179,17 +179,17 @@ class Game extends React.Component {
 
     return (
       <div>
-        <div>Game</div>
+        <h1>Game of life</h1>
         <div>
-          <button onClick={this.run.bind(this)}>Run</button>
-          <button onClick={this.pause.bind(this)}>Pause</button>
-          <button onClick={this.clear.bind(this)}>Clear</button>
+          <button className="btn" onClick={this.run.bind(this)}>Run</button>
+          <button className="btn" onClick={this.pause.bind(this)}>Pause</button>
+          <button className="btn" onClick={this.clear.bind(this)}>Clear</button>
         </div>
         <div>
-          Size:
+          <div>Board size</div>
           {
             this.boardSizes.map(function (size, i) {
-              return <button key={i} onClick={this.changeBoardSize(size.width, size.height).bind(this)}>{size.width}x{size.height}</button>
+              return <button className="btn" key={i} onClick={this.changeBoardSize(size.width, size.height).bind(this)}>{size.width}x{size.height}</button>
             }.bind(this))
           }
         </div>

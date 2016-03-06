@@ -10,8 +10,7 @@ class Board extends React.Component {
     const state = this.context.store.getState()
 
     return (
-      <div className={`width-${state.game.width}`}>
-        <div>Board</div>
+      <div className={`board width-${state.game.width}`}>
         { this.renderObject(state.cells.cells) }
       </div>
     )
