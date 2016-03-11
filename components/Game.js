@@ -56,6 +56,7 @@ class Game extends React.Component {
 
       clearInterval(this.interval)
       this.generateCells(width, height, true)
+      this.generationReset();
     }
   }
 
@@ -109,7 +110,13 @@ class Game extends React.Component {
     const game = this.store.getState().game
     this.generateCells(game.width, game.height, false)
 
-    // reset generation count
+    this.generationReset();
+  }
+
+  /**
+   * reset generation count
+   */
+  generationReset() {
     this.store.dispatch({
       type: 'GENERATION_RESET'
     })
