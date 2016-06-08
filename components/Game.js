@@ -5,6 +5,7 @@
 import React from 'react'
 
 import Board from './Board'
+import * as actionTypes from './../actionTypes';
 
 class Game extends React.Component {
 
@@ -49,7 +50,7 @@ class Game extends React.Component {
   changeBoardSize(width, height) {
     return function () {
       this.store.dispatch({
-        type: 'BOARD_SIZE',
+        type: actionTypes.BOARD_SIZE,
         width,
         height
       })
@@ -79,7 +80,7 @@ class Game extends React.Component {
     }
 
     this.store.dispatch({
-      type: 'SET_CELLS',
+      type: actionTypes.SET_CELLS,
       cells: cells
     })
   }
@@ -118,7 +119,7 @@ class Game extends React.Component {
    */
   generationReset() {
     this.store.dispatch({
-      type: 'GENERATION_RESET'
+      type: actionTypes.GENERATION_RESET
     })
   }
 
@@ -170,13 +171,13 @@ class Game extends React.Component {
 
     // update cells
     this.store.dispatch({
-      type: 'SET_CELLS',
+      type: actionTypes.SET_CELLS,
       cells: updatedCells
     })
 
     // update generation count
     this.store.dispatch({
-      type: 'GENERATION_INCREMENT'
+      type: actionTypes.GENERATION_INCREMENT
     })
   }
 
