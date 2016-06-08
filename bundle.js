@@ -56,11 +56,11 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _reactRedux = __webpack_require__(170);
+	var _reactRedux = __webpack_require__(171);
 
-	__webpack_require__(181);
+	__webpack_require__(182);
 
-	var _Game = __webpack_require__(185);
+	var _Game = __webpack_require__(186);
 
 	var _Game2 = _interopRequireDefault(_Game);
 
@@ -19693,25 +19693,31 @@
 
 	var _redux = __webpack_require__(160);
 
+	var _actionTypes = __webpack_require__(170);
+
+	var actionTypes = _interopRequireWildcard(_actionTypes);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 	var game = function game() {
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? { width: 0, height: 0, generation: 0 } : arguments[0];
 	  var action = arguments[1];
 
 
-	  if (action.type === 'BOARD_SIZE') {
+	  if (action.type === actionTypes.BOARD_SIZE) {
 	    return Object.assign({}, state, {
 	      height: action.height,
 	      width: action.width
 	    });
 	  }
 
-	  if (action.type === 'GENERATION_INCREMENT') {
+	  if (action.type === actionTypes.GENERATION_INCREMENT) {
 	    return Object.assign({}, state, {
 	      generation: state.generation + 1
 	    });
 	  }
 
-	  if (action.type === 'GENERATION_RESET') {
+	  if (action.type === actionTypes.GENERATION_RESET) {
 	    return Object.assign({}, state, {
 	      generation: 0
 	    });
@@ -19725,13 +19731,13 @@
 	  var action = arguments[1];
 
 
-	  if (action.type === 'SET_CELLS') {
+	  if (action.type === actionTypes.SET_CELLS) {
 	    return Object.assign({}, state, {
 	      cells: action.cells
 	    });
 	  }
 
-	  if (action.type === 'CELL_UPDATE') {
+	  if (action.type === actionTypes.CELL_UPDATE) {
 	    state.cells[action.row][action.column] = action.life;
 
 	    return Object.assign({}, state);
@@ -20468,6 +20474,25 @@
 
 /***/ },
 /* 170 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	 * Created by Vadym Yatsyuk on 08/06/16
+	 */
+
+	var BOARD_SIZE = exports.BOARD_SIZE = 'BOARD_SIZE';
+	var GENERATION_INCREMENT = exports.GENERATION_INCREMENT = 'GENERATION_INCREMENT';
+	var GENERATION_RESET = exports.GENERATION_RESET = 'GENERATION_RESET';
+	var SET_CELLS = exports.SET_CELLS = 'SET_CELLS';
+	var CELL_UPDATE = exports.CELL_UPDATE = 'CELL_UPDATE';
+
+/***/ },
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20475,11 +20500,11 @@
 	exports.__esModule = true;
 	exports.connect = exports.Provider = undefined;
 
-	var _Provider = __webpack_require__(171);
+	var _Provider = __webpack_require__(172);
 
 	var _Provider2 = _interopRequireDefault(_Provider);
 
-	var _connect = __webpack_require__(173);
+	var _connect = __webpack_require__(174);
 
 	var _connect2 = _interopRequireDefault(_connect);
 
@@ -20489,7 +20514,7 @@
 	exports.connect = _connect2["default"];
 
 /***/ },
-/* 171 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -20499,7 +20524,7 @@
 
 	var _react = __webpack_require__(1);
 
-	var _storeShape = __webpack_require__(172);
+	var _storeShape = __webpack_require__(173);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
@@ -20573,7 +20598,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 172 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20589,7 +20614,7 @@
 	});
 
 /***/ },
-/* 173 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -20601,27 +20626,27 @@
 
 	var _react = __webpack_require__(1);
 
-	var _storeShape = __webpack_require__(172);
+	var _storeShape = __webpack_require__(173);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _shallowEqual = __webpack_require__(174);
+	var _shallowEqual = __webpack_require__(175);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _wrapActionCreators = __webpack_require__(175);
+	var _wrapActionCreators = __webpack_require__(176);
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _isPlainObject = __webpack_require__(176);
+	var _isPlainObject = __webpack_require__(177);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(179);
+	var _hoistNonReactStatics = __webpack_require__(180);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-	var _invariant = __webpack_require__(180);
+	var _invariant = __webpack_require__(181);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -20917,7 +20942,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 174 */
+/* 175 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -20948,7 +20973,7 @@
 	}
 
 /***/ },
-/* 175 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20965,11 +20990,11 @@
 	}
 
 /***/ },
-/* 176 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isHostObject = __webpack_require__(177),
-	    isObjectLike = __webpack_require__(178);
+	var isHostObject = __webpack_require__(178),
+	    isObjectLike = __webpack_require__(179);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -21039,7 +21064,7 @@
 
 
 /***/ },
-/* 177 */
+/* 178 */
 /***/ function(module, exports) {
 
 	/**
@@ -21065,7 +21090,7 @@
 
 
 /***/ },
-/* 178 */
+/* 179 */
 /***/ function(module, exports) {
 
 	/**
@@ -21099,7 +21124,7 @@
 
 
 /***/ },
-/* 179 */
+/* 180 */
 /***/ function(module, exports) {
 
 	/**
@@ -21129,13 +21154,15 @@
 	};
 
 	module.exports = function hoistNonReactStatics(targetComponent, sourceComponent) {
-	    var keys = Object.getOwnPropertyNames(sourceComponent);
-	    for (var i=0; i<keys.length; ++i) {
-	        if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]]) {
-	            try {
-	                targetComponent[keys[i]] = sourceComponent[keys[i]];
-	            } catch (error) {
+	    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
+	        var keys = Object.getOwnPropertyNames(sourceComponent);
+	        for (var i=0; i<keys.length; ++i) {
+	            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]]) {
+	                try {
+	                    targetComponent[keys[i]] = sourceComponent[keys[i]];
+	                } catch (error) {
 
+	                }
 	            }
 	        }
 	    }
@@ -21145,7 +21172,7 @@
 
 
 /***/ },
-/* 180 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21203,16 +21230,16 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 181 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(182);
+	var content = __webpack_require__(183);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(184)(content, {});
+	var update = __webpack_require__(185)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -21229,21 +21256,21 @@
 	}
 
 /***/ },
-/* 182 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(183)();
+	exports = module.exports = __webpack_require__(184)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body {\n  color: #fff;\n  background-color: black;\n  font-family: 'Roboto', sans-serif; }\n\n#app {\n  margin-left: auto;\n  margin-right: auto;\n  width: 1000px;\n  text-align: center;\n  /* css for the shiny buttons */ }\n  #app .btn {\n    cursor: pointer;\n    margin: 10px;\n    border-radius: 5px;\n    text-decoration: none;\n    padding: 5px 10px;\n    font-size: 16px;\n    transition: .3s;\n    -webkit-transition: .3s;\n    -moz-transition: .3s;\n    -o-transition: .3s;\n    display: inline-block;\n    background-color: transparent;\n    color: #fff;\n    border: 2px #fff solid; }\n    #app .btn:hover {\n      color: #000;\n      background-color: #fff; }\n  #app .board {\n    margin-left: auto;\n    margin-right: auto; }\n    #app .board.width-50 {\n      width: 500px; }\n    #app .board.width-70 {\n      width: 700px; }\n    #app .board.width-100 {\n      width: 1000px; }\n    #app .board .row {\n      clear: both; }\n    #app .board .cell {\n      height: 10px;\n      width: 10px;\n      float: left;\n      border-radius: 50%;\n      background-color: #565656; }\n      #app .board .cell.life {\n        background-color: #fff; }\n", ""]);
+	exports.push([module.id, "body {\n  color: #fff;\n  background-color: black;\n  font-family: 'Roboto', sans-serif; }\n\n#app {\n  margin-left: auto;\n  margin-right: auto;\n  width: 1000px;\n  text-align: center;\n  /* css for the shiny buttons */ }\n  #app .btn {\n    cursor: pointer;\n    margin: 10px;\n    border-radius: 5px;\n    text-decoration: none;\n    padding: 5px 10px;\n    font-size: 16px;\n    transition: .3s;\n    -webkit-transition: .3s;\n    -moz-transition: .3s;\n    -o-transition: .3s;\n    display: inline-block;\n    background-color: transparent;\n    color: #fff;\n    border: 2px #fff solid;\n    outline: none !important; }\n    #app .btn:hover {\n      color: #000;\n      background-color: #fff; }\n  #app .board {\n    margin-left: auto;\n    margin-right: auto; }\n    #app .board.width-50 {\n      width: 500px; }\n    #app .board.width-70 {\n      width: 700px; }\n    #app .board.width-100 {\n      width: 1000px; }\n    #app .board .row {\n      clear: both; }\n    #app .board .cell {\n      height: 10px;\n      width: 10px;\n      float: left;\n      border-radius: 50%;\n      background-color: #565656; }\n      #app .board .cell.life {\n        background-color: #fff; }\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 183 */
+/* 184 */
 /***/ function(module, exports) {
 
 	/*
@@ -21299,7 +21326,7 @@
 
 
 /***/ },
-/* 184 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -21553,7 +21580,7 @@
 
 
 /***/ },
-/* 185 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21568,9 +21595,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Board = __webpack_require__(186);
+	var _Board = __webpack_require__(187);
 
 	var _Board2 = _interopRequireDefault(_Board);
+
+	var _actionTypes = __webpack_require__(170);
+
+	var actionTypes = _interopRequireWildcard(_actionTypes);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21634,7 +21667,7 @@
 	    value: function changeBoardSize(width, height) {
 	      return function () {
 	        this.store.dispatch({
-	          type: 'BOARD_SIZE',
+	          type: actionTypes.BOARD_SIZE,
 	          width: width,
 	          height: height
 	        });
@@ -21667,7 +21700,7 @@
 	      }
 
 	      this.store.dispatch({
-	        type: 'SET_CELLS',
+	        type: actionTypes.SET_CELLS,
 	        cells: cells
 	      });
 	    }
@@ -21718,7 +21751,7 @@
 	    key: 'generationReset',
 	    value: function generationReset() {
 	      this.store.dispatch({
-	        type: 'GENERATION_RESET'
+	        type: actionTypes.GENERATION_RESET
 	      });
 	    }
 
@@ -21766,13 +21799,13 @@
 
 	      // update cells
 	      this.store.dispatch({
-	        type: 'SET_CELLS',
+	        type: actionTypes.SET_CELLS,
 	        cells: updatedCells
 	      });
 
 	      // update generation count
 	      this.store.dispatch({
-	        type: 'GENERATION_INCREMENT'
+	        type: actionTypes.GENERATION_INCREMENT
 	      });
 	    }
 	  }, {
@@ -21847,7 +21880,7 @@
 	exports.default = Game;
 
 /***/ },
-/* 186 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21862,7 +21895,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Cell = __webpack_require__(187);
+	var _Cell = __webpack_require__(188);
 
 	var _Cell2 = _interopRequireDefault(_Cell);
 
@@ -21937,7 +21970,7 @@
 	exports.default = Board;
 
 /***/ },
-/* 187 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21951,6 +21984,8 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _actionTypes = __webpack_require__(170);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21976,7 +22011,7 @@
 	    key: 'changeState',
 	    value: function changeState() {
 	      this.context.store.dispatch({
-	        type: 'CELL_UPDATE',
+	        type: _actionTypes.CELL_UPDATE,
 	        row: this.props.row,
 	        column: this.props.column,
 	        life: 1
