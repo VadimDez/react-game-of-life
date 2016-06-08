@@ -50,7 +50,7 @@ class Game extends React.Component {
   changeBoardSize(width, height) {
     return function () {
       this.store.dispatch({
-        type: 'BOARD_SIZE',
+        type: actionTypes.BOARD_SIZE,
         width,
         height
       })
