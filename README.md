@@ -30,4 +30,4 @@ Open [http://localhost:9000](http://localhost:9000) in browser.
 
 ### License
 
-MIT © [Vadym Yatsyuk](https://github.com/vadimdez)
+[MIT](https://tldrlegal.com/license/mit-license) © [Vadym Yatsyuk](https://github.com/vadimdez)
