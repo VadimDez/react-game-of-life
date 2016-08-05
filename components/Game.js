@@ -2,43 +2,37 @@
  * Created by vadimdez on 09/02/16.
  */
 
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
 
-import Board from './Board'
+import Board from './Board';
 import * as actionTypes from './../actionTypes';
 
 class Game extends React.Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props);
 
-    this.interval = null
+    this.interval = null;
     this.boardSizes = [
-      {width: 50, height: 30},
-      {width: 70, height: 50},
-      {width: 100, height: 80}
-    ]
+      { width: 50, height: 30 },
+      { width: 70, height: 50 },
+      { width: 100, height: 80 }
+    ];
   }
 
   setRandomBoard() {
-    const rand = Math.floor(Math.random() * this.boardSizes.length)
+    const rand = Math.floor(Math.random() * this.boardSizes.length);
     const randomSize = this.boardSizes[rand];
-    this.changeBoardSize(randomSize.width, randomSize.height).bind(this)()
+    this.changeBoardSize(randomSize.width, randomSize.height).bind(this)();
   }
 
   componentDidMount() {
-    this.store = this.context.store
-
-    this.unsubscribe = this.store.subscribe(() => {
-      this.forceUpdate()
-    })
-
-    this.setRandomBoard()
+    this.setRandomBoard();
     this.run()
   }
 
   componentWillUnmount() {
-    this.unsubscribe()
   }
 
   /**
@@ -48,16 +42,12 @@ class Game extends React.Component {
    * @returns {Function}
    */
   changeBoardSize(width, height) {
-    return function () {
-      this.store.dispatch({
-        type: actionTypes.BOARD_SIZE,
-        width,
-        height
-      })
+    return () => {
+      this.props.setBoardSize(width, height);
 
-      clearInterval(this.interval)
-      this.generateCells(width, height, true)
-      this.generationReset();
+      clearInterval(this.interval);
+      this.generateCells(width, height, true);
+      this.props.resetGeneration();
     }
   }
 
@@ -73,16 +63,13 @@ class Game extends React.Component {
     var cells = {};
     for (let r = 0; r < height; r++) {
       for (let c = 0; c < width; c++) {
-        cells[r] = cells[r] || {}
+        cells[r] = cells[r] || {};
 
-        cells[r][c] = randomize ? Math.floor(Math.random() * 2) : 0
+        cells[r][c] = randomize ? Math.floor(Math.random() * 2) : 0;
       }
     }
 
-    this.store.dispatch({
-      type: actionTypes.SET_CELLS,
-      cells: cells
-    })
+    this.props.setCells(cells);
   }
 
   /**
@@ -107,55 +94,44 @@ class Game extends React.Component {
    * Clear interval and board
    */
   clear() {
-    clearInterval(this.interval)
-    const game = this.store.getState().game
-    this.generateCells(game.width, game.height, false)
+    clearInterval(this.interval);
+    this.generateCells(this.props.game.width, this.props.game.height, false);
 
-    this.generationReset();
-  }
-
-  /**
-   * reset generation count
-   */
-  generationReset() {
-    this.store.dispatch({
-      type: actionTypes.GENERATION_RESET
-    })
+    this.props.resetGeneration();
   }
 
   /**
    * Cycle callback
    */
   cycle() {
-    let stop = true
-    const cells = this.store.getState().cells.cells
-    let updatedCells = {}
-    const rows = Object.keys(cells).length
+    let stop = true;
+    let updatedCells = {};
+    const rows = Object.keys(this.props.cells).length;
 
     for (var row = 0; row < rows; row++) {
-      var columns = Object.keys(cells[row]).length
+      var columns = Object.keys(this.props.cells[row]).length;
       updatedCells[row] = {};
       for (var column = 0; column < columns; column++) {
 
         // check if there're any lives
-        if (cells[row][column] === 1) {
+        if (this.props.cells[row][column] === 1) {
           stop = false
         }
 
-        const prevRow = cells[row - 1] || {};
-        const nextRow = cells[row + 1] || {};
+        const prevRow = this.props.cells[row - 1] || {};
+        const nextRow = this.props.cells[row + 1] || {};
 
         const count = (prevRow[column - 1] || 0) +
           (prevRow[column] || 0) +
           (prevRow[column + 1] || 0) +
-          (cells[row][column - 1] || 0) +
-          (cells[row][column + 1] || 0) +
+          (this.props.cells[row][column - 1] || 0) +
+          (this.props.cells[row][column + 1] || 0) +
           (nextRow[column - 1] || 0) +
           (nextRow[column] || 0) +
-          (nextRow[column + 1] || 0)
+          (nextRow[column + 1] || 0);
 
-        updatedCells[row][column] = 0
-        if (cells[row][column] === 1 && count === 2) {
+        updatedCells[row][column] = 0;
+        if (this.props.cells[row][column] === 1 && count === 2) {
           updatedCells[row][column] = 1
         } else if (count === 3) {
           updatedCells[row][column] = 1
@@ -170,21 +146,13 @@ class Game extends React.Component {
     }
 
     // update cells
-    this.store.dispatch({
-      type: actionTypes.SET_CELLS,
-      cells: updatedCells
-    })
+    this.props.setCells(updatedCells);
 
     // update generation count
-    this.store.dispatch({
-      type: actionTypes.GENERATION_INCREMENT
-    })
+    this.props.incrementGeneration();
   }
 
   render() {
-    this.store = this.context.store
-    const state = this.store.getState()
-
     return (
       <div>
         <h1>Game of life</h1>
@@ -202,7 +170,7 @@ class Game extends React.Component {
           }
         </div>
         <div>
-          Generation: {state.game.generation}
+          Generation: { this.props.game.generation }
         </div>
         <Board />
       </div>
@@ -210,8 +178,44 @@ class Game extends React.Component {
   }
 }
 
-Game.contextTypes = {
-  store: React.PropTypes.object
+const mapStateToProps = (state) => {
+  return {
+    game: state.game,
+    cells: state.cells.cells
+  };
 };
 
-export default Game;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    incrementGeneration: () => {
+      dispatch({
+        type: actionTypes.GENERATION_INCREMENT
+      });
+    },
+    setCells: (cells) => {
+      dispatch({
+        type: actionTypes.SET_CELLS,
+        cells
+      });
+    },
+    resetGeneration: () => {
+      dispatch({
+        type: actionTypes.GENERATION_RESET
+      });
+    },
+    setBoardSize: (width, height) => {
+      dispatch({
+        type: actionTypes.BOARD_SIZE,
+        width,
+        height
+      });
+    }
+  };
+};
+
+const GameConnected = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Game);
+
+export default GameConnected;
