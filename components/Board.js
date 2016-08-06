@@ -2,16 +2,15 @@
  * Created by vadimdez on 09/02/16.
  */
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Cell from './Cell'
 
 class Board extends React.Component {
   render() {
-    const state = this.context.store.getState()
-
     return (
-      <div className={`board width-${state.game.width}`}>
-        { this.renderObject(state.cells.cells) }
+      <div className={`board width-${ this.props.game.width }`}>
+        { this.renderObject( this.props.cells ) }
       </div>
     )
   }
@@ -38,8 +37,13 @@ class Board extends React.Component {
   }
 }
 
-Board.contextTypes = {
-  store: React.PropTypes.object
+const mapStateToProps = (state) => {
+  return {
+    game: state.game,
+    cells: state.cells.cells
+  };
 };
 
-export default Board;
+export default connect(
+  mapStateToProps
+)(Board);
