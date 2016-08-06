@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { Map, List } from 'immutable';
 
 import Board from './Board';
 import * as actionTypes from './../actionTypes';
@@ -139,7 +140,7 @@ class Game extends React.Component {
       }
     }
 
-    // clear if no more lifes
+    // clear if no more life
     if (stop) {
       this.clear();
       return;
@@ -180,8 +181,8 @@ class Game extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    game: state.game,
-    cells: state.cells.cells
+    game: state.game.toJS(),
+    cells: state.cells.get('cells').toJS()
   };
 };
 

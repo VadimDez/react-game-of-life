@@ -39,8 +39,8 @@ class Board extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    game: state.game,
-    cells: state.cells.cells
+    game: state.game.toJS(),
+    cells: state.cells.get('cells').toJS()
   };
 };
 

@@ -1,42 +1,43 @@
 import {createStore, combineReducers} from 'redux';
+import { Map, List, fromJS } from 'immutable';
+
 import * as actionTypes from './actionTypes';
 
-const game = (state = {width: 0, height: 0, generation: 0}, action) => {
+let initialGameState = Map({
+  width: 0,
+  height: 0,
+  generation: 0
+});
 
+const game = (state = initialGameState, action) => {
   if (action.type === actionTypes.BOARD_SIZE) {
-    return Object.assign({}, state, {
+    return state.merge({
       height: action.height,
       width: action.width
-    })
+    });
   }
 
   if (action.type === actionTypes.GENERATION_INCREMENT) {
-    return Object.assign({}, state, {
-      generation: state.generation + 1
-    })
+    return state.set('generation', state.get('generation') + 1);
   }
 
   if (action.type === actionTypes.GENERATION_RESET) {
-    return Object.assign({}, state, {
-      generation: 0
-    })
+    return state.set('generation', 0);
   }
 
-  return state
+  return state;
 };
 
-const cells = (state = {}, action) => {
-
+const initialCellsState = Map({
+  cells: Map({})
+});
+const cells = (state = initialCellsState, action) => {
   if (action.type === actionTypes.SET_CELLS) {
-    return Object.assign({}, state, {
-      cells: action.cells
-    })
+    return state.merge({cells: action.cells});
   }
 
   if (action.type === actionTypes.CELL_UPDATE) {
-    state.cells[action.row][action.column] = action.life
-
-    return Object.assign({}, state)
+    return state.get('' + action.row).set('' + action.column, action.life);
   }
 
   return state;
