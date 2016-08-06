@@ -37,7 +37,9 @@ const cells = (state = initialCellsState, action) => {
   }
 
   if (action.type === actionTypes.CELL_UPDATE) {
-    return state.get('' + action.row).set('' + action.column, action.life);
+    const row = state.get('cells').get('' + action.row).set(action.column, action.life);
+    const cells = state.get('cells').set(action.row, row);
+    return state.set('cells', cells);
   }
 
   return state;
