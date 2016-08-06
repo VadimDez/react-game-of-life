@@ -1,31 +1,48 @@
 /**
  * Created by vadimdez on 09/02/16.
  */
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
+
 import { CELL_UPDATE } from './../actionTypes';
 
 class Cell extends React.Component {
 
   changeState() {
-    this.context.store.dispatch({
-      type: CELL_UPDATE,
-      row: this.props.row,
-      column: this.props.column,
-      life: 1
-    })
+    this.props.updateCell(this.props.row, this.props.column);
   }
 
   render() {
+    const lifeClass = this.props.life ? 'life' : '';
     return (
       <div
-        className={'cell ' + ((this.props.life) ? 'life' : '')}
-        onClick={this.changeState.bind(this)}></div>
+        className={ `cell ${lifeClass}` }
+        onClick={this.changeState.bind(this)}
+      ></div>
     )
   }
 }
 
-Cell.contextTypes = {
-  store: React.PropTypes.object
+const mapSteteToProps = (state) => {
+  return {
+
+  };
 };
 
-export default Cell
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateCell: (row, column) => {
+      dispatch({
+        type: CELL_UPDATE,
+        row,
+        column,
+        life: 1
+      });
+    }
+  };
+};
+
+export default connect(
+  mapSteteToProps,
+  mapDispatchToProps
+)(Cell);
