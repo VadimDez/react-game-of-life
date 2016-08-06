@@ -8,6 +8,12 @@ import { CELL_UPDATE } from './../actionTypes';
 
 class Cell extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.changeState = this.changeState.bind(this);
+  }
+
   changeState() {
     this.props.updateCell(this.props.row, this.props.column);
   }
@@ -21,7 +27,7 @@ class Cell extends React.Component {
     return (
       <div
         className={ `cell ${lifeClass}` }
-        onClick={this.changeState.bind(this)}
+        onClick={ this.changeState }
       ></div>
     )
   }

@@ -20,17 +20,23 @@ class Game extends React.Component {
       { width: 70, height: 50 },
       { width: 100, height: 80 }
     ];
+
+    this.changeBoardSize = this.changeBoardSize.bind(this);
+    this.cycle = this.cycle.bind(this);
+    this.run = this.run.bind(this);
+    this.pause = this.pause.bind(this);
+    this.clear = this.clear.bind(this);
   }
 
   setRandomBoard() {
     const rand = Math.floor(Math.random() * this.boardSizes.length);
     const randomSize = this.boardSizes[rand];
-    this.changeBoardSize(randomSize.width, randomSize.height).bind(this)();
+    this.changeBoardSize(randomSize.width, randomSize.height)();
   }
 
   componentDidMount() {
     this.setRandomBoard();
-    this.run()
+    this.run();
   }
 
   componentWillUnmount() {
@@ -81,7 +87,7 @@ class Game extends React.Component {
       clearInterval(this.interval)
     }
 
-    this.interval = setInterval(this.cycle.bind(this), 200);
+    this.interval = setInterval(this.cycle, 200);
   }
 
   /**
@@ -158,16 +164,19 @@ class Game extends React.Component {
       <div>
         <h1>Game of life</h1>
         <div>
-          <button className="btn" onClick={this.run.bind(this)}>Run</button>
-          <button className="btn" onClick={this.pause.bind(this)}>Pause</button>
-          <button className="btn" onClick={this.clear.bind(this)}>Clear</button>
+          <button className="btn" onClick={ this.run }>Run</button>
+          <button className="btn" onClick={ this.pause }>Pause</button>
+          <button className="btn" onClick={ this.clear }>Clear</button>
         </div>
         <div>
           <div>Board size</div>
           {
-            this.boardSizes.map(function (size, i) {
-              return <button className="btn" key={i} onClick={this.changeBoardSize(size.width, size.height).bind(this)}>{size.width}x{size.height}</button>
-            }.bind(this))
+            this.boardSizes.map((size, i) => {
+              return <button className="btn"
+                             key={i}
+                             onClick={this.changeBoardSize(size.width, size.height)}
+              >{size.width}x{size.height}</button>
+            })
           }
         </div>
         <div>
