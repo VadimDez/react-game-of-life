@@ -12,6 +12,10 @@ class Cell extends React.Component {
     this.props.updateCell(this.props.row, this.props.column);
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.life !== this.props.life;
+  }
+
   render() {
     const lifeClass = this.props.life ? 'life' : '';
     return (
